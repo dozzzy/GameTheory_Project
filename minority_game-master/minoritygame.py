@@ -50,7 +50,7 @@ class System:
         self.SuccessRates = [] # for storing the global success rates
         self.W = [rand_pm() for i in range(self.m)]# initialize global info (i.e. the winning actions)
         self.D = [] # net actions. sum_i a_i, where a_i is the i-th user's action +1 or -1
- 
+        self.figure2=[[0 for i in range(2)]for j in range(2**m)]
     @property
     def d(self): # current net action
         d = 0
@@ -61,6 +61,13 @@ class System:
     def update(self):
         d = self.d
         self.D.append(d)
+        temp_state=self.state
+
+        if minority(d) == -1:
+            self.figure2[temp_state][0]=self.figure2[temp_state][0]+1
+        elif minority(d) == 1:
+            self.figure2[temp_state][1]=self.figure2[temp_state][1]+1
+
         self.W.append(minority(d))
         rate = (self.N-abs(d))/(2.0*self.N) # the success rate
         self.SuccessRates.append(rate)
@@ -73,6 +80,7 @@ class System:
            
     def run(self):
         for t in range(self.T):
+
             state = self.state
             for u in self.Users:
                 u.act(state)
