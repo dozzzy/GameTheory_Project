@@ -67,6 +67,8 @@ class System:
     def update(self):
         d = self.d
         self.D.append(d)
+
+
         temp_state=self.state
 
         if minority(d) == -1:
