@@ -51,11 +51,17 @@ class System:
         self.W = [rand_pm() for i in range(self.m)]# initialize global info (i.e. the winning actions)
         self.D = [] # net actions. sum_i a_i, where a_i is the i-th user's action +1 or -1
         self.figure2=[[0 for i in range(2)]for j in range(2**m)]
+
+        self.OneUser=[]
+
+
     @property
     def d(self): # current net action
         d = 0
         for u in self.Users:
             d += u.action
+
+        self.OneUser.append(u.action)
         return d
      
     def update(self):
