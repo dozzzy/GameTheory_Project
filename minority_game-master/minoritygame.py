@@ -40,12 +40,12 @@ class User:
         self.score += ds
         self.acted = False # reset the signal
 
-    def update2(self,w,d):
+    def update2(self,w,d,n):
         # update the scores of the strategies based on if the user loses or wins
         assert self.acted, 'act() first before update()'
         # update the score of the strategies
         for strategy in self.Strategies:
-            ds = strategy.act(self.state)*d*(-1)
+            ds = (strategy.act(self.state)*d*(-1))/n
             ss = bool_pm(strategy.act(self.state) == w)
             strategy.update(ds)
         # update the score of the user
@@ -69,6 +69,8 @@ class System:
         self.D2 = []
 
         self.figure3=[[0 for i in range(2)]for j in range(2**m)]
+
+        self.figure4=[[0 for i in range(2)]for j in range(2**m)]
         self.OneUser=[]
 
 
@@ -100,6 +102,9 @@ class System:
                 self.figure3[temp_state][0] = self.figure3[temp_state][0] + 1
             elif minority(d) == 1:
                 self.figure3[temp_state][1] = self.figure3[temp_state][1] + 1
+        if self.T-t>=100:
+            self.figure4[temp_state][0]=self.figure4[temp_state][0]+1
+            self.figure4[temp_state][1]=self.figure4[temp_state][1]+d
 
         self.W.append(minority(d))
         rate = (self.N-abs(d))/(2.0*self.N) # the success rate
@@ -120,4 +125,4 @@ class System:
             self.update(t)
             for u in self.Users:
                 #u.update(self.W[-1])
-                u.update2(self.W[-1],self.D[-1])
+                u.update2(self.W[-1],self.D[-1],self.N)
