@@ -1,5 +1,6 @@
 from minoritygame import *
 import matplotlib.pyplot as plt
+
 N = 51
 s = 2
 T=500

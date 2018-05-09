@@ -13,6 +13,7 @@ class Strategy:
     def update(self, v=1):
         self.score += v #update the score by adding v to it
 
+
 class User:
     def __init__(self, s=2):
         self.s = s # number of strategies a user can have
@@ -39,6 +40,19 @@ class User:
         self.score += ds
         self.acted = False # reset the signal
 
+    def update2(self,w,d):
+        # update the scores of the strategies based on if the user loses or wins
+        assert self.acted, 'act() first before update()'
+        # update the score of the strategies
+        for strategy in self.Strategies:
+            ds = strategy.act(self.state)*d*(-1)
+            ss = bool_pm(strategy.act(self.state) == w)
+            strategy.update(ds)
+        # update the score of the user
+        self.score += ss
+        self.acted = False # reset the signal
+
+
 class System:
     def __init__(self, T = 1, N = 101, m=3, s=2):
         self.T = T # number of steps to run each time
@@ -52,6 +66,9 @@ class System:
         self.D = [] # net actions. sum_i a_i, where a_i is the i-th user's action +1 or -1
         self.figure2=[[0 for i in range(2)]for j in range(2**m)]
 
+        self.D2 = []
+
+        self.figure3=[[0 for i in range(2)]for j in range(2**m)]
         self.OneUser=[]
 
 
@@ -64,10 +81,12 @@ class System:
         self.OneUser.append(u.action)
         return d
      
-    def update(self):
+    def update(self,t):
         d = self.d
         self.D.append(d)
 
+        if self.T - t >= 50:
+            self.D2.append(d)
 
         temp_state=self.state
 
@@ -75,6 +94,12 @@ class System:
             self.figure2[temp_state][0]=self.figure2[temp_state][0]+1
         elif minority(d) == 1:
             self.figure2[temp_state][1]=self.figure2[temp_state][1]+1
+
+        if self.T-t>=50:
+            if minority(d) == -1:
+                self.figure3[temp_state][0] = self.figure3[temp_state][0] + 1
+            elif minority(d) == 1:
+                self.figure3[temp_state][1] = self.figure3[temp_state][1] + 1
 
         self.W.append(minority(d))
         rate = (self.N-abs(d))/(2.0*self.N) # the success rate
@@ -92,6 +117,7 @@ class System:
             state = self.state
             for u in self.Users:
                 u.act(state)
-            self.update()
+            self.update(t)
             for u in self.Users:
-                u.update(self.W[-1])
+                #u.update(self.W[-1])
+                u.update2(self.W[-1],self.D[-1])
