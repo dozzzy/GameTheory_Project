@@ -1,8 +1,8 @@
-from pylab import *
+
 from numpy import *
 from minoritygame import *
+import matplotlib.pyplot as plt
 
-fig = figure(1,figsize=(6,4))
 
 X = []
 Y = []
@@ -19,9 +19,9 @@ for m in range(1,10):
     Y.append(mean(y))
     print('m='+str(m))
 
-plot(X,Y,'o-')
-xscale('log')
-xlabel(r'$2^{m}/N$')
-ylabel(r'$success\ rate$')
-savefig('Success_rate.jpg')
-close(fig)
+plt.plot(X,Y,'o-')
+plt.xscale('log')
+plt.xlabel(r'$2^{m}/N$')
+plt.ylabel(r'$success\ rate$')
+plt.savefig('Success_rate.jpg')
+plt.close()

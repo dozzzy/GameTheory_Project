@@ -1,8 +1,7 @@
-from pylab import *
+import matplotlib.pyplot as plt
 from numpy import *
 from minoritygame import *
 
-fig = figure(1,figsize=(6,4))
 
 N = 101
 syms = ['ro-','gs-','bd-']
@@ -21,13 +20,12 @@ for i in range(len(s)):
         X.append(mean(x))
         Y.append(mean(y))
         print('m='+str(m))
-    plot(X,Y,syms[i],label='s='+str(s[i]))
+    plt.plot(X,Y,syms[i],label='s='+str(s[i]))
     print('s='+str(s[i]))
 
-xscale('log')
-yscale('log')
-xlabel(r'$2^{m}/N$')
-ylabel(r'$\sigma^2/N$')
-legend(loc='best')
-fig.set_tight_layout(True)
-savefig('Var_alpha_multiS.jpg')
+plt.xscale('log')
+plt.yscale('log')
+plt.xlabel(r'$2^{m}/N$')
+plt.ylabel(r'$\sigma^2/N$')
+plt.legend(loc='best')
+plt.savefig('Var_alpha_multiS.jpg')
