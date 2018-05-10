@@ -59,6 +59,7 @@ class System:
         self.SuccessRates = [] # for storing the global success rates
         self.W = [rand_pm() for i in range(self.m)]# initialize global info (i.e. the winning actions)
         self.A = [] # net actions. sum_i a_i, where a_i is the i-th user's action +1 or -1
+        self.A2= []
         self.figure2=[[0 for i in range(2)]for j in range(2**m)]
         self.lp=lp
         self.figure4=[[0 for i in range(2)]for j in range(2**m)]
@@ -78,7 +79,8 @@ class System:
         d = self.d
         self.A.append(d)
 
-
+        if self.T-t>=50:
+            self.A2.append(d)
         temp_state=self.state
 
         if minority(d) == -1:

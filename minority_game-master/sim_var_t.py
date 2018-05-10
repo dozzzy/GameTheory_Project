@@ -24,3 +24,4 @@ plt.ylabel(r'occurrence')
 plt.savefig('Var_t.jpg')
 plt.show()
 
+
