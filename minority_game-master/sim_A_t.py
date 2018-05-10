@@ -11,7 +11,7 @@ N = 301
 plt.figure(1)
 sim = System(T=T,N=N, m=m,s=s)
 sim.run()
-AllAction=sim.D
+AllAction=sim.A
 #print(AllAction)
 plt.title('m=2')
 plt.plot(range(T), AllAction)
@@ -25,7 +25,7 @@ m=7
 plt.figure(2)
 sim = System(T=T,N=N, m=m,s=s)
 sim.run()
-AllAction=sim.D
+AllAction=sim.A
 #print(AllAction)
 plt.title('m=7')
 plt.plot(range(T), AllAction)

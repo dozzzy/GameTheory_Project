@@ -8,7 +8,7 @@ m=11
 
 sim = System(T=T,N=N, m=m,s=s,lp=1)
 sim.run()
-D=sim.D
+A=sim.A
 x=[]
 y1=[]
 
@@ -16,7 +16,7 @@ for i in range(T):
     x.append(i)
     temp=[]
     for j in range(i):
-        temp.append(D[j])
+        temp.append(A[j])
     y1.append(var(temp))
 plt.plot(x, y1)
 plt.xlabel(r't')

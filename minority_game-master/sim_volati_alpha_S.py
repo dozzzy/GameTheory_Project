@@ -17,7 +17,7 @@ for i in range(len(s)):
             sim = System(T=200,N=N, m=m,s=s[i])
             sim.run()
             x.append(float(2**m)/float(N))
-            y.append(var(sim.D)/float(N))
+            y.append(var(sim.A)/float(N))
         X.append(mean(x))
         Y.append(mean(y))
         print('m='+str(m))
