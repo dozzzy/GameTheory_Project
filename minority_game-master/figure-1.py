@@ -1,3 +1,4 @@
+# -1
 from minoritygame import *
 import matplotlib.pyplot as plt
 # figure2-1 symetric

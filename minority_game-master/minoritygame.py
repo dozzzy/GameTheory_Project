@@ -19,7 +19,6 @@ class User:
         self.s = s # number of strategies a user can have
         self.Strategies = [Strategy() for i in range(self.s)] # the user's strategies
         self.action = None # for recording the user's latest action
-        self.score = 0 #the user's score, i.e., cumulative number of wins
         self.acted = False # signal telling if the user has acted
  
     def act(self, state):
@@ -37,7 +36,6 @@ class User:
             ds = bool_pm(strategy.act(self.state) == w)
             strategy.update(ds)
         # update the score of the user
-        self.score += ds
         self.acted = False # reset the signal
 
     def update2(self,w,d,n):
@@ -46,30 +44,23 @@ class User:
         # update the score of the strategies
         for strategy in self.Strategies:
             ds = (strategy.act(self.state)*d*(-1))/n
-            ss = bool_pm(strategy.act(self.state) == w)
             strategy.update(ds)
         # update the score of the user
-        self.score += ss
         self.acted = False # reset the signal
 
 
 class System:
-    def __init__(self, T = 1, N = 101, m=3, s=2):
+    def __init__(self, T = 1, N = 101, m=3, s=2, lp=0):
         self.T = T # number of steps to run each time
         self.N = N # number of users
         self.m = m # memory length
         self.s = s # number of strategies for each user
         self.Users = [User(s=self.s) for i in range(self.N)] #initialize the users
-        self.Prices = [0] # for storing the prices, initialize it with zero
         self.SuccessRates = [] # for storing the global success rates
         self.W = [rand_pm() for i in range(self.m)]# initialize global info (i.e. the winning actions)
-        self.D = [] # net actions. sum_i a_i, where a_i is the i-th user's action +1 or -1
+        self.A = [] # net actions. sum_i a_i, where a_i is the i-th user's action +1 or -1
         self.figure2=[[0 for i in range(2)]for j in range(2**m)]
-
-        self.D2 = []
-
-        self.figure3=[[0 for i in range(2)]for j in range(2**m)]
-
+        self.lp=lp
         self.figure4=[[0 for i in range(2)]for j in range(2**m)]
         self.OneUser=[]
 
@@ -85,10 +76,8 @@ class System:
      
     def update(self,t):
         d = self.d
-        self.D.append(d)
+        self.A.append(d)
 
-        if self.T - t >= 50:
-            self.D2.append(d)
 
         temp_state=self.state
 
@@ -97,20 +86,16 @@ class System:
         elif minority(d) == 1:
             self.figure2[temp_state][1]=self.figure2[temp_state][1]+1
 
-        if self.T-t>=50:
-            if minority(d) == -1:
-                self.figure3[temp_state][0] = self.figure3[temp_state][0] + 1
-            elif minority(d) == 1:
-                self.figure3[temp_state][1] = self.figure3[temp_state][1] + 1
-        if self.T-t>=100:
-            self.figure4[temp_state][0]=self.figure4[temp_state][0]+1
-            self.figure4[temp_state][1]=self.figure4[temp_state][1]+d
+
+
+        #if self.T-t>=100:
+        self.figure4[temp_state][0]=self.figure4[temp_state][0]+1
+        self.figure4[temp_state][1]=self.figure4[temp_state][1]+d
 
         self.W.append(minority(d))
         rate = (self.N-abs(d))/(2.0*self.N) # the success rate
         self.SuccessRates.append(rate)
-        d = d/float(self.N) # normalize by N to get the price
-        self.Prices.append(self.Prices[-1] + d) # update the price
+
              
     @property
     def state(self):
@@ -124,5 +109,7 @@ class System:
                 u.act(state)
             self.update(t)
             for u in self.Users:
-                #u.update(self.W[-1])
-                u.update2(self.W[-1],self.D[-1],self.N)
+                if self.lp==0:
+                    u.update(self.W[-1])
+                else:
+                    u.update2(self.W[-1],self.A[-1],self.N)
