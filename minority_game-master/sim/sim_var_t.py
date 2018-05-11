@@ -20,7 +20,7 @@ for i in range(T):
     y1.append(var(temp))
 plt.plot(x, y1)
 plt.xlabel(r't')
-plt.ylabel(r'occurrence')
+plt.ylabel(r'$\sigma^2$')
 plt.savefig('figures/Var_t.jpg')
 plt.show()
 

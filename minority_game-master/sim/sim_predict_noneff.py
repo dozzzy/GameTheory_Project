@@ -66,7 +66,7 @@ for j in range(2**10):
         tcount=tcount+1
 print('eff_rate',tcount/2**10)
 plt.xlabel(r'$\mu$')
-plt.ylabel('accurance_count')
+plt.ylabel(r'occurrence')
 plt.savefig('figures/Predict_eff_cnt.jpg')
 plt.show()
 plt.close()
