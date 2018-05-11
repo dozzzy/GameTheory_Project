@@ -1,6 +1,6 @@
 
 from numpy import *
-from minoritygame import *
+from frame.minoritygame import *
 import matplotlib.pyplot as plt
 
 
@@ -23,5 +23,5 @@ plt.plot(X,Y,'o-')
 plt.xscale('log')
 plt.xlabel(r'$2^{m}/N$')
 plt.ylabel(r'$success\ rate$')
-plt.savefig('Success_rate.jpg')
+plt.savefig('figures/Success_rate.jpg')
 plt.close()

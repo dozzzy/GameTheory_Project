@@ -1,7 +1,5 @@
 # 2
-from pylab import *
-from numpy import *
-from minoritygame import *
+from frame.minoritygame import *
 import matplotlib.pyplot as plt
 # figure2-1 symetric
 T = 100
@@ -27,7 +25,7 @@ print(figure2_rate)
 plt.bar(range(2**m), figure2_rate)
 plt.xlabel(r'$\mu$')
 plt.ylabel(r'P(1|$\mu$)')
-plt.savefig('Condi_win_sym.jpg')
+plt.savefig('figures/Condi_win_sym.jpg')
 plt.show()
 plt.close()
 
@@ -54,6 +52,6 @@ print(figure2_rate)
 plt.bar(range(2**m), figure2_rate)
 plt.xlabel(r'$\mu$')
 plt.ylabel(r'P(1|$\mu$)')
-plt.savefig('Condi_win_assym.jpg')
+plt.savefig('figures/Condi_win_assym.jpg')
 plt.show()
 plt.close()

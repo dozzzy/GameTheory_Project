@@ -1,4 +1,4 @@
-from minoritygame import *
+from frame.minoritygame import *
 import math
 import matplotlib.pyplot as plt
 # figure3
@@ -54,7 +54,7 @@ plt.xscale('log')
 plt.xlabel(r'$2^{m}/N$')
 plt.ylabel('H/N')
 plt.legend(loc='best')
-plt.savefig('Predict_eff.jpg')
+plt.savefig('figures/Predict_eff.jpg')
 plt.show()
 plt.close()
 
@@ -67,6 +67,6 @@ for j in range(2**10):
 print('eff_rate',tcount/2**10)
 plt.xlabel(r'$\mu$')
 plt.ylabel('accurance_count')
-plt.savefig('Predict_eff_cnt.jpg')
+plt.savefig('figures/Predict_eff_cnt.jpg')
 plt.show()
 plt.close()

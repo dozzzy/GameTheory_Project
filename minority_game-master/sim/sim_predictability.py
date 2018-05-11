@@ -1,7 +1,7 @@
 # 3
 from pylab import *
 from numpy import *
-from minoritygame import *
+from frame.minoritygame import *
 import math
 import matplotlib.pyplot as plt
 # figure3
@@ -50,7 +50,7 @@ plt.xscale('log')
 plt.xlabel(r'$2^{m}/N$')
 plt.ylabel('H/N')
 plt.legend(loc='best')
-plt.savefig('Predict.jpg')
+plt.savefig('figures/Predict.jpg')
 plt.show()
 
 

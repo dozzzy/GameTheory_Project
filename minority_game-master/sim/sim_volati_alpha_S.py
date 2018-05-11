@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 from numpy import *
-from minoritygame import *
+from frame.minoritygame import *
 
 
 N = 101
@@ -28,4 +28,4 @@ plt.yscale('log')
 plt.xlabel(r'$2^{m}/N$')
 plt.ylabel(r'$\sigma^2/N$')
 plt.legend(loc='best')
-plt.savefig('Var_alpha_multiS.jpg')
+plt.savefig('figures/Var_alpha_multiS.jpg')

@@ -1,4 +1,4 @@
-from minoritygame import *
+from frame.minoritygame import *
 import matplotlib.pyplot as plt
 
 N = 51
@@ -21,7 +21,7 @@ for i in range(T):
 plt.plot(x, y1)
 plt.xlabel(r't')
 plt.ylabel(r'occurrence')
-plt.savefig('Var_t.jpg')
+plt.savefig('figures/Var_t.jpg')
 plt.show()
 
 

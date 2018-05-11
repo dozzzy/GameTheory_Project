@@ -1,5 +1,4 @@
-#1
-from minoritygame import *
+from frame.minoritygame import *
 import matplotlib.pyplot as plt
 N = [51,101,251,501]
 syms = ['x','v','s','p','*']
@@ -12,7 +11,7 @@ for i in range(len(N)):
         x = []
         y = []
         for t in range(10):
-            sim = System(T=500,N=N[i], m=m,s=s)
+            sim = System(T=500,N=N[i], m=m,s=s,lp=1)
             sim.run()
             x.append(float(2**m)/float(N[i]))
             y.append(var(sim.A2)/float(N[i]))
@@ -27,7 +26,7 @@ plt.yscale('log')
 plt.xlabel(r'$2^{m}/N$')
 plt.ylabel(r'$\sigma^2/N$')
 plt.legend(loc='best')
-plt.savefig('Var_alpha_nonlinear.jpg')
+plt.savefig('figures/Var_alpha.jpg')
 plt.show()
 
 
